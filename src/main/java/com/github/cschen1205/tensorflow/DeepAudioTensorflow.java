@@ -39,10 +39,12 @@ public class DeepAudioTensorflow implements DeepAudio {
         this.classifier = classifier;
     }
 
+    @Override
     public String predictMusicGenres(File audioFile) {
         return classifier.predict_audio(audioFile);
     }
 
+    @Override
     public float[] encodeAudioFile(File audioFile) {
         return classifier.encode_audio(audioFile);
     }
@@ -68,7 +70,7 @@ public class DeepAudioTensorflow implements DeepAudio {
     }
 
     @Override
-    public void indexAll(File[] files) {
+    public void indexMusicFiles(File[] files) {
         for(File f : files) {
             index(f);
         }
@@ -104,7 +106,7 @@ public class DeepAudioTensorflow implements DeepAudio {
     }
 
     @Override
-    public boolean loadIndexDbIfExists() {
+    public boolean loadMusicIndexDbIfExists() {
         File file = new File(indexDbPath);
         if(file.exists()){
             String json = null;
@@ -133,7 +135,7 @@ public class DeepAudioTensorflow implements DeepAudio {
     }
 
     @Override
-    public void saveIndexDb() {
+    public void saveMusicIndexDb() {
         File file = new File(indexDbPath);
         if(!file.getParentFile().exists()) {
             file.getParentFile().mkdir();

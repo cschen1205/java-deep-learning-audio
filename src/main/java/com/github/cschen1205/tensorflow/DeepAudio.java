@@ -7,17 +7,21 @@ import java.util.List;
 
 public interface DeepAudio {
 
+    String predictMusicGenres(File audioFile);
+
+    float[] encodeAudioFile(File audioFile);
+
     void purgeDb();
 
     AudioSearchEntry index(File file);
 
-    void indexAll(File[] files);
+    void indexMusicFiles(File[] files);
 
     List<AudioSearchEntry> query(File file, int pageIndex, int pageSize);
 
     List<AudioSearchEntry> query(File file, int pageIndex, int pageSize, boolean skipPerfectMatch);
 
-    boolean loadIndexDbIfExists();
+    boolean loadMusicIndexDbIfExists();
 
-    void saveIndexDb();
+    void saveMusicIndexDb();
 }

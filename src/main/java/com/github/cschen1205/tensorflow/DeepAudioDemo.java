@@ -1,14 +1,5 @@
-# java-deep-learning-audio
+package com.github.cschen1205.tensorflow;
 
-Audio Deep Learning Project in Java
-
-# Predict Music Genres
-
-The [sample codes](src/main/java/com/github/cschen1205/tensorflow/DeepAudioDemo.java) shows how to 
-[DeepAudio](src/main/java/com/github/cschen1205/tensorflow/DeepAudioTensorflow.java) to predict the genres of an
-music file:
-
-```java
 import com.github.cschen1205.tensorflow.commons.FileUtils;
 import com.github.cschen1205.tensorflow.search.models.AudioSearchEntry;
 
@@ -16,43 +7,30 @@ import java.io.File;
 import java.util.Collections;
 import java.util.List;
 
-public class MusicGenrePredictionDemo {
+public class DeepAudioDemo {
     public static void main(String[] args){
+        predictMusicGenres();
+        audioSearchEngine();
+    }
+
+    private static void predictMusicGenres() {
         DeepAudio classifier = new DeepAudioTensorflow();
-        
+
         String folderStoringMusicFiles = "music_samples";
         List<String> paths = FileUtils.getAudioFilePaths(folderStoringMusicFiles, ".au");
-        
+
         Collections.shuffle(paths);
-        
+
         for (String path : paths) {
             System.out.println("Predicting " + path + " ...");
             File f = new File(path);
             String label = classifier.predictMusicGenres(f);
-        
+
             System.out.println("Predicted: " + label);
-        }    
+        }
     }
-}
 
-```
-
-# Predict Music Genres
-
-The [sample codes](src/main/java/com/github/cschen1205/tensorflow/DeepAudioDemo.java) shows how to 
-[DeepAudio](src/main/java/com/github/cschen1205/tensorflow/DeepAudioTensorflow.java) to search for similar musics stored
-in your local folder using search query which is the music file of interest:
-
-```java
-import com.github.cschen1205.tensorflow.commons.FileUtils;
-import com.github.cschen1205.tensorflow.search.models.AudioSearchEntry;
-
-import java.io.File;
-import java.util.Collections;
-import java.util.List;
-
-public class MusicSearchEngineDemo {
-    public static void main(String[] args){
+    private static void audioSearchEngine() {
         DeepAudio searchEngine = new DeepAudioTensorflow();
         if(!searchEngine.loadMusicIndexDbIfExists()) {
             String folderStoringMusicFiles = "music_samples";
@@ -68,8 +46,6 @@ public class MusicSearchEngineDemo {
         List<AudioSearchEntry> result = searchEngine.query(sample_file, pageIndex, pageSize, skipPerfectMatch);
         for(int i=0; i < result.size(); ++i){
             System.out.println("# " + i + ": " + result.get(i).getPath() + " (distSq: " + result.get(i).getDistance() + ")");
-        } 
+        }
     }
 }
-
-```
