@@ -1,9 +1,11 @@
-package com.github.cschen1205.tensorflow.search.models;
+package com.github.cschen1205.tensorflow;
+
+import com.github.cschen1205.tensorflow.search.models.AudioSearchEntry;
 
 import java.io.File;
 import java.util.List;
 
-public interface AudioSearchEngine {
+public interface DeepAudio {
 
     void purgeDb();
 

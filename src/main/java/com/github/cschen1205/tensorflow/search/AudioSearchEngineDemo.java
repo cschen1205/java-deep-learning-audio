@@ -1,8 +1,8 @@
 package com.github.cschen1205.tensorflow.search;
 
 import com.github.cschen1205.tensorflow.commons.FileUtils;
-import com.github.cschen1205.tensorflow.search.models.AudioSearchEngine;
-import com.github.cschen1205.tensorflow.search.models.AudioSearchEngineImpl;
+import com.github.cschen1205.tensorflow.DeepAudio;
+import com.github.cschen1205.tensorflow.DeepAudioTensorflow;
 import com.github.cschen1205.tensorflow.search.models.AudioSearchEntry;
 
 import java.io.File;
@@ -10,7 +10,7 @@ import java.util.List;
 
 public class AudioSearchEngineDemo {
     public static void main(String[] args){
-        AudioSearchEngine searchEngine = new AudioSearchEngineImpl();
+        DeepAudio searchEngine = new DeepAudioTensorflow();
         if(!searchEngine.loadIndexDbIfExists()) {
             searchEngine.indexAll(FileUtils.getAudioFiles());
             searchEngine.saveIndexDb();

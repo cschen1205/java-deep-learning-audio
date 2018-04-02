@@ -1,10 +1,11 @@
-package com.github.cschen1205.tensorflow.search.models;
+package com.github.cschen1205.tensorflow;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
-import com.github.cschen1205.tensorflow.classifiers.audio.models.AudioEncoder;
+import com.github.cschen1205.tensorflow.classifiers.audio.models.AudioClassifier;
 import com.github.cschen1205.tensorflow.classifiers.audio.models.cifar10.Cifar10AudioClassifier;
 import com.github.cschen1205.tensorflow.classifiers.audio.utils.ResourceUtils;
+import com.github.cschen1205.tensorflow.search.models.AudioSearchEntry;
 import lombok.Getter;
 import lombok.Setter;
 import org.slf4j.Logger;
@@ -21,13 +22,13 @@ import java.util.stream.Stream;
 
 @Getter
 @Setter
-public class AudioSearchEngineImpl implements AudioSearchEngine {
-    private static final Logger logger = LoggerFactory.getLogger(AudioSearchEngine.class);
-    private AudioEncoder encoder;
+public class DeepAudioTensorflow implements DeepAudio {
+    private static final Logger logger = LoggerFactory.getLogger(DeepAudio.class);
+    private AudioClassifier classifier;
     private List<AudioSearchEntry> database = new ArrayList<>();
     private String indexDbPath = "/tmp/music_index_db.json";
 
-    public AudioSearchEngineImpl() {
+    public DeepAudioTensorflow() {
         InputStream inputStream = ResourceUtils.getInputStream("tf_models/cifar10.pb");
         Cifar10AudioClassifier classifier = new Cifar10AudioClassifier();
         try {
@@ -35,8 +36,21 @@ public class AudioSearchEngineImpl implements AudioSearchEngine {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        encoder = classifier;
+        this.classifier = classifier;
     }
+
+    public String predictMusicGenres(File audioFile) {
+        return classifier.predict_audio(audioFile);
+    }
+
+    public float[] encodeAudioFile(File audioFile) {
+        return classifier.encode_audio(audioFile);
+    }
+
+
+
+
+
 
 
     @Override
@@ -47,7 +61,7 @@ public class AudioSearchEngineImpl implements AudioSearchEngine {
     @Override
     public AudioSearchEntry index(File file) {
         logger.info("indexing file: " + file.getAbsolutePath());
-        float[] result = encoder.encode_audio(file);
+        float[] result = classifier.encode_audio(file);
         AudioSearchEntry entry = new AudioSearchEntry(file.getAbsolutePath(), result);
         database.add(entry);
         return entry;
@@ -67,7 +81,7 @@ public class AudioSearchEngineImpl implements AudioSearchEngine {
 
     @Override
     public List<AudioSearchEntry> query(File file, int pageIndex, int pageSize, boolean skipPerfectMatch) {
-        float[] d = encoder.encode_audio(file);
+        float[] d = classifier.encode_audio(file);
         List<AudioSearchEntry> temp = new ArrayList<>();
         for(AudioSearchEntry entry : database){
             if(!entry.match(d) || !skipPerfectMatch){
