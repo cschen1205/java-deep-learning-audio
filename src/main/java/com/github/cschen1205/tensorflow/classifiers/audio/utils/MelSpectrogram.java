@@ -161,7 +161,20 @@ public class MelSpectrogram  implements PitchDetectionHandler {
         position = position % outputFrameWidth;
     }
 
+    public static BufferedImage convert_mp3_to_image(File mp3){
+        File tempFile = AudioUtils.convertMp3ToWave(mp3);
+        BufferedImage img = convert_to_image(tempFile);
+        tempFile.delete();
+        return img;
+    }
+
+
     public BufferedImage convertAudio(File audioFile) throws IOException, UnsupportedAudioFileException, LineUnavailableException {
+
+
+        if(audioFile.getPath().toLowerCase().endsWith(".mp3")){
+            return convert_mp3_to_image(audioFile);
+        }
 
         AudioDispatcher dispatcher = AudioDispatcherFactory.fromFile(audioFile, bufferSize, overlap);
         //AudioFormat format = AudioSystem.getAudioFileFormat(audioFile).getFormat();
