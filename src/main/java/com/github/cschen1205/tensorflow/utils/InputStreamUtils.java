@@ -1,4 +1,4 @@
-package com.github.cschen1205.tensorflow.classifiers.audio.utils;
+package com.github.cschen1205.tensorflow.utils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

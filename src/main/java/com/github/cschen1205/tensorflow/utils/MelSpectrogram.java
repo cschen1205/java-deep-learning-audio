@@ -1,4 +1,4 @@
-package com.github.cschen1205.tensorflow.classifiers.audio.utils;
+package com.github.cschen1205.tensorflow.utils;
 
 import be.tarsos.dsp.AudioDispatcher;
 import be.tarsos.dsp.AudioEvent;
@@ -8,7 +8,7 @@ import be.tarsos.dsp.pitch.PitchDetectionHandler;
 import be.tarsos.dsp.pitch.PitchDetectionResult;
 import be.tarsos.dsp.util.PitchConverter;
 import be.tarsos.dsp.util.fft.FFT;
-import com.github.cschen1205.tensorflow.classifiers.audio.utils.consts.MelSpectrogramDimension;
+import com.github.cschen1205.tensorflow.utils.consts.MelSpectrogramDimension;
 import lombok.Getter;
 import lombok.Setter;
 

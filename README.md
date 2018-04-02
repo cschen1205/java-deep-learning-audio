@@ -37,7 +37,7 @@ public class MusicGenrePredictionDemo {
 
 ```
 
-# Predict Music Genres
+# Music Search
 
 The [sample codes](src/main/java/com/github/cschen1205/tensorflow/DeepAudioDemo.java) shows how to 
 [DeepAudio](src/main/java/com/github/cschen1205/tensorflow/DeepAudioTensorflow.java) to search for similar musics stored

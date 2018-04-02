@@ -1,5 +1,6 @@
 package com.github.cschen1205.tensorflow;
 
+import com.github.cschen1205.tensorflow.commons.UserMusicHistory;
 import com.github.cschen1205.tensorflow.commons.FileUtils;
 import com.github.cschen1205.tensorflow.search.models.AudioSearchEntry;
 
@@ -10,7 +11,8 @@ import java.util.List;
 public class DeepAudioDemo {
     public static void main(String[] args){
         predictMusicGenres();
-        audioSearchEngine();
+        musicSearchEngine();
+        recommendMusic();
     }
 
     private static void predictMusicGenres() {
@@ -30,7 +32,46 @@ public class DeepAudioDemo {
         }
     }
 
-    private static void audioSearchEngine() {
+    private static UserMusicHistory getUserMusicHistory() {
+        UserMusicHistory userHistory = new UserMusicHistory();
+
+        List<String> audioFiles = FileUtils.getAudioFilePaths("music_samples", ".au");
+        Collections.shuffle(audioFiles);
+
+        for(int i=0; i < 40; ++i){
+            String filePath = audioFiles.get(i);
+            userHistory.logAudio(filePath);
+            try {
+                Thread.sleep(100L);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return userHistory;
+    }
+
+    private static void recommendMusic() {
+        UserMusicHistory userHistory = getUserMusicHistory();
+
+        DeepAudio recommender = new DeepAudioTensorflow();
+        if(!recommender.loadMusicIndexDbIfExists()) {
+            recommender.indexMusicFiles(FileUtils.getAudioFiles("music_samples", ".au"));
+            recommender.saveMusicIndexDb();
+        }
+
+        System.out.println(userHistory.head(10));
+
+        int k = 10;
+        List<AudioSearchEntry> result = recommender.recommends(userHistory.getHistory(), k);
+
+        for(int i=0; i < result.size(); ++i){
+            AudioSearchEntry entry = result.get(i);
+            System.out.println("Search Result #" + (i+1) + ": " + entry.getPath());
+        }
+    }
+
+    private static void musicSearchEngine() {
         DeepAudio searchEngine = new DeepAudioTensorflow();
         if(!searchEngine.loadMusicIndexDbIfExists()) {
             String folderStoringMusicFiles = "music_samples";

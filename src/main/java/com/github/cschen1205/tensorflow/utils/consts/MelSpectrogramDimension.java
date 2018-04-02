@@ -1,4 +1,4 @@
-package com.github.cschen1205.tensorflow.classifiers.audio.utils.consts;
+package com.github.cschen1205.tensorflow.utils.consts;
 
 public class MelSpectrogramDimension {
     public static final int Width = 1366;

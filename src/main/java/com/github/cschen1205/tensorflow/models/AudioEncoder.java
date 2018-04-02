@@ -1,4 +1,4 @@
-package com.github.cschen1205.tensorflow.classifiers.audio.models;
+package com.github.cschen1205.tensorflow.models;
 
 import java.awt.image.BufferedImage;
 import java.io.File;

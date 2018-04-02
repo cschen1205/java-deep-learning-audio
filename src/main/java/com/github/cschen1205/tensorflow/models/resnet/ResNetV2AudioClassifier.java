@@ -1,12 +1,12 @@
-package com.github.cschen1205.tensorflow.classifiers.audio.models.resnet;
+package com.github.cschen1205.tensorflow.models.resnet;
 
-import com.github.cschen1205.tensorflow.classifiers.audio.utils.MelSpectrogram;
-import com.github.cschen1205.tensorflow.classifiers.audio.utils.consts.MelSpectrogramDimension;
-import com.github.cschen1205.tensorflow.classifiers.audio.models.AudioClassifier;
-import com.github.cschen1205.tensorflow.classifiers.audio.models.TrainedModelLoader;
-import com.github.cschen1205.tensorflow.classifiers.audio.utils.ImageUtils;
-import com.github.cschen1205.tensorflow.classifiers.audio.utils.InputStreamUtils;
-import com.github.cschen1205.tensorflow.classifiers.audio.utils.TensorUtils;
+import com.github.cschen1205.tensorflow.utils.MelSpectrogram;
+import com.github.cschen1205.tensorflow.utils.consts.MelSpectrogramDimension;
+import com.github.cschen1205.tensorflow.models.AudioClassifier;
+import com.github.cschen1205.tensorflow.models.TrainedModelLoader;
+import com.github.cschen1205.tensorflow.utils.ImageUtils;
+import com.github.cschen1205.tensorflow.utils.InputStreamUtils;
+import com.github.cschen1205.tensorflow.utils.TensorUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tensorflow.Graph;

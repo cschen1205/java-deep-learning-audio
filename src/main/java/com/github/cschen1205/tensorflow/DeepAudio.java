@@ -1,5 +1,6 @@
 package com.github.cschen1205.tensorflow;
 
+import com.github.cschen1205.tensorflow.commons.AudioMemo;
 import com.github.cschen1205.tensorflow.search.models.AudioSearchEntry;
 
 import java.io.File;
@@ -24,4 +25,6 @@ public interface DeepAudio {
     boolean loadMusicIndexDbIfExists();
 
     void saveMusicIndexDb();
+
+    List<AudioSearchEntry> recommends(List<AudioMemo> userHistory, int k);
 }
